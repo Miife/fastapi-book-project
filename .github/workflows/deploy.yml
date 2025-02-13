@@ -30,6 +30,9 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Test SSH Connection
+        run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "echo SSH Success"
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
